@@ -1,10 +1,11 @@
 ---
-title:协同测试
-author:Resource-7
+slug: wtext
+title: 协同测试
+author: Resource-7
 ---
 
 
-#Text
+# Text
 #### 名词解释
 - `feat`: 新增功能/逻辑
 - `fix`: 修复bug
