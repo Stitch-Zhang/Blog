@@ -9,9 +9,9 @@ tags: [Go, Github,Uber,guide]
 ---
 ## Uber-Go-Guide
 ### 介绍
- [Uber](https://www.uber.com/) 是一家美国硅谷的科技公司，也是 Go 语言的早期 adopter。其开源了很多 golang 项目，诸如被 Gopher 圈熟知的 [zap](https://github.com/uber-go/zap)、[jaeger](https://github.com/jaegertracing/jaeger) 等。2018 年年末 Uber 将内部的 [Go 风格规范](https://github.com/uber-go/guide) 开源到 GitHub，经过一年的积累和更新，该规范已经初具规模，并受到广大 Gopher 的关注。本文是该规范的中文版本。本版本会根据原版实时更新。
-[👾Github链接](https://github.com/uber-go/guide)
+ [Uber](https://www.uber.com/) 是一家美国硅谷的科技公司，也是 Go 语言的早期 adopter。其开源了很多 golang 项目，诸如被 Gopher 圈熟知的 [zap](https://github.com/uber-go/zap)、[jaeger](https://github.com/jaegertracing/jaeger) 等。2018 年年末 Uber 将内部的 [Go 风格规范](https://github.com/uber-go/guide) 开源到 GitHub，经过一年的积累和更新，该规范已经初具规模，并受到广大 Gopher 的关注。
 <!--truncate-->
+本文是该规范的中文版本。本版本会根据原版实时更新。<br/>[👾Github链接](https://github.com/uber-go/guide)
 <!--
 
 Editing this document:
@@ -105,6 +105,7 @@ change.md
 
 -->
 
+
 ## [uber-go/guide](https://github.com/uber-go/guide) 的中文翻译
 
 ## [English](https://github.com/uber-go/guide/blob/master/style.md)
@@ -191,7 +192,6 @@ change.md
 - [Linting](#linting)
   - [Lint Runners](#lint-runners)
 - [Stargazers over time](#stargazers-over-time)
-
 ## 介绍
 
 样式 (style) 是支配我们代码的惯例。术语`样式`有点用词不当，因为这些约定涵盖的范围不限于由 gofmt 替我们处理的源文件格式。
@@ -268,7 +268,8 @@ var f2 F = &S2{}
 <tr><td>
 
 ```go
-// 如果Handler没有实现http.Handler,会在运行时报错
+// 如果Handler没有实现http.Handler
+// 会在运行时报错
 type Handler struct {
   // ...
 }
@@ -287,7 +288,8 @@ type Handler struct {
   // ...
 }
 // 用于触发编译期的接口的合理性检查机制
-// 如果Handler没有实现http.Handler,会在编译期报错
+// 如果Handler没有实现http.Handler
+// 会在编译期报错
 var _ http.Handler = (*Handler)(nil)
 func (h *Handler) ServeHTTP(
   w http.ResponseWriter,
@@ -320,6 +322,7 @@ func (h LogHandler) ServeHTTP(
   // ...
 }
 ```
+
 
 ### 接收器 (receiver) 与接口
 
@@ -444,7 +447,9 @@ mu.Lock()
 
 ```go
 type smap struct {
-  sync.Mutex // only for unexported types（仅适用于非导出类型）
+  // only for unexported types
+  // （仅适用于非导出类型）
+  sync.Mutex 
 
   data map[string]string
 }
@@ -467,7 +472,8 @@ func (m *smap) Get(k string) string {
 
 ```go
 type SMap struct {
-  mu sync.Mutex // 对于导出类型，请使用私有锁
+  // 对于导出类型，请使用私有锁
+  mu sync.Mutex 
 
   data map[string]string
 }
@@ -488,13 +494,14 @@ func (m *SMap) Get(k string) string {
 
 </td></tr>
 
-</tr>
+
 <tr>
 <td>为私有类型或需要实现互斥接口的类型嵌入。</td>
 <td>对于导出的类型，请使用专用字段。</td>
 </tr>
 
 </tbody></table>
+
 
 ### 在边界处拷贝 Slices 和 Maps
 
@@ -543,6 +550,7 @@ trips[0] = ...
 
 </tbody>
 </table>
+
 
 #### 返回 slices 或 maps
 
@@ -601,6 +609,7 @@ snapshot := stats.Snapshot()
 </td></tr>
 </tbody></table>
 
+
 ### 使用 defer 释放资源
 
 使用 defer 释放资源，诸如文件和锁。
@@ -647,6 +656,8 @@ return p.count
 
 Defer 的开销非常小，只有在您可以证明函数执行时间处于纳秒级的程度时，才应避免这样做。使用 defer 提升可读性是值得的，因为使用它们的成本微不足道。尤其适用于那些不仅仅是简单内存访问的较大的方法，在这些方法中其他计算的资源消耗远超过 `defer`。
 
+
+
 ### Channel 的 size 要么是 1，要么是无缓冲的
 
 channel 通常 size 应为 1 或是无缓冲的。默认情况下，channel 是无缓冲的，其 size 为零。任何其他尺寸都必须经过严格的审查。我们需要考虑如何确定大小，考虑是什么阻止了 channel 在高负载下和阻塞写时的写入，以及当这种情况发生时系统逻辑有哪些变化。(翻译解释：按照原文意思是需要界定通道边界，竞态条件，以及逻辑上下文梳理)
@@ -672,6 +683,7 @@ c := make(chan int)
 
 </td></tr>
 </tbody></table>
+
 
 ### 枚举从 1 开始
 
@@ -724,6 +736,7 @@ const (
 
 // LogToStdout=0, LogToFile=1, LogToRemote=2
 ```
+
 
 ### 使用 time 处理时间
 
@@ -815,6 +828,8 @@ newDay := t.AddDate(0 /* years */, 0 /* months */, 1 /* days */)
 maybeNewDay := t.Add(24 * time.Hour)
 ```
 
+
+
 #### 对外部系统使用 `time.Time` 和 `time.Duration` 
 
 尽可能在与外部系统的交互中使用 `time.Duration` 和 `time.Time` 例如 :
@@ -871,6 +886,8 @@ type Config struct {
 [15190]: https://github.com/golang/go/issues/15190
 
 <!-- TODO: section on String methods for enums -->
+
+
 
 ### 错误类型
 
@@ -1031,6 +1048,7 @@ if err := foo.Open("foo"); err != nil {
 
 <!-- TODO: Exposing the information to callers with accessor functions. -->
 
+
 ### 错误包装 (Error Wrapping)
 
 一个（函数/方法）调用失败时，有三种主要的错误传播方式：
@@ -1042,6 +1060,8 @@ if err := foo.Open("foo"); err != nil {
 建议在可能的地方添加上下文，以使您获得诸如“调用服务 foo：连接被拒绝”之类的更有用的错误，而不是诸如“连接被拒绝”之类的模糊错误。
 
 在将上下文添加到返回的错误时，请避免使用“failed to”之类的短语以保持上下文简洁，这些短语会陈述明显的内容，并随着错误在堆栈中的渗透而逐渐堆积：
+
+
 
 <table>
 <thead><tr><th>Bad</th><th>Good</th></tr></thead>
@@ -1066,7 +1086,7 @@ if err != nil {
 }
 ```
 
-<tr><td>
+</td></tr><tr><td>
 
 ```
 failed to x: failed to y: failed to create new store: the error
@@ -1080,6 +1100,7 @@ x: y: new store: the error
 
 </td></tr>
 </tbody></table>
+
 
 但是，一旦将错误发送到另一个系统，就应该明确消息是错误消息（例如使用`err`标记，或在日志中以”Failed”为前缀）。
 
@@ -1117,6 +1138,7 @@ if !ok {
 
 <!-- TODO: There are a few situations where the single assignment form is
 fine. -->
+
 
 ### 不要 panic
 
@@ -1256,6 +1278,7 @@ func (f *foo) isRunning() bool {
 
 </td></tr>
 </tbody></table>
+
 
 ### 避免可变全局变量
 
@@ -1434,6 +1457,11 @@ func (l *ConcreteList) Remove(e Entity) {
 
 尽管编写这些委托方法是乏味的，但是额外的工作隐藏了实现细节，留下了更多的更改机会，还消除了在文档中发现完整列表接口的间接性操作。
 
+
+
+
+
+
 ### 避免使用内置名称
 
 Go语言规范[language specification] 概述了几个内置的，
@@ -1518,6 +1546,8 @@ func (f Foo) String() string {
 
 注意，编译器在使用预先分隔的标识符时不会生成错误，
 但是诸如`go vet`之类的工具会正确地指出这些和其他情况下的隐式问题。
+
+
 
 ### 避免使用 `init()`
 
@@ -1606,6 +1636,8 @@ func loadConfig() Config {
 </td></tr>
 </tbody></table>
 
+
+
 考虑到上述情况，在某些情况下，`init()`可能更可取或是必要的，可能包括：
 
 - 不能表示为单个赋值的复杂表达式。
@@ -1613,6 +1645,8 @@ func loadConfig() Config {
 - 对[Google Cloud Functions]和其他形式的确定性预计算的优化。
 
   [Google Cloud Functions]: https://cloud.google.com/functions/docs/bestpractices/tips#use_global_variables_to_reuse_objects_in_future_invocations
+
+
 
 ### 追加时优先指定切片容量
 
@@ -1661,6 +1695,7 @@ BenchmarkGood-4   100000000    0.21s
 </td></tr>
 </tbody></table>
 
+
 ## 性能
 
 性能方面的特定准则只适用于高频场景。
@@ -1706,6 +1741,7 @@ BenchmarkStrconv-4    64.2 ns/op    1 allocs/op
 
 
 
+
 ### 避免字符串到字节的转换
 
 不要反复从固定字符串创建字节 slice。相反，请执行一次转换并捕获结果。
@@ -1716,7 +1752,7 @@ BenchmarkStrconv-4    64.2 ns/op    1 allocs/op
 <tr><td>
 
 ```go
-for i := 0; i < b.N; i++ {
+for i := 0; i &lt; b.N; i++ {
   w.Write([]byte("Hello world"))
 }
 ```
@@ -1725,12 +1761,12 @@ for i := 0; i < b.N; i++ {
 
 ```go
 data := []byte("Hello world")
-for i := 0; i < b.N; i++ {
+for i := 0; i &lt; b.N; i++ {
   w.Write(data)
 }
 ```
 
-</tr>
+</td></tr>
 <tr><td>
 
 ```
@@ -1745,6 +1781,8 @@ BenchmarkGood-4  500000000   3.25 ns/op
 
 </td></tr>
 </tbody></table>
+
+
 
 ### 指定容器容量
 
@@ -2004,6 +2042,7 @@ func f() string {
 </td></tr>
 </tbody></table>
 
+
 ### import 分组
 
 导入应该分为两组：
@@ -2159,6 +2198,7 @@ func calcCost(n []int) int {...}
 
 </td></tr>
 </tbody></table>
+
 
 ### 减少嵌套
 
@@ -2459,6 +2499,7 @@ type Client struct {
 </td></tr>
 </tbody></table>
 
+
 ### 使用字段名初始化结构体
 
 初始化结构体时，应该指定字段名称。现在由 [`go vet`] 强制执行。
@@ -2556,6 +2597,8 @@ func f(list []int) {
 
 </td></tr>
 </tbody></table>
+
+
 
 ### nil 是一个有效的 slice
 
@@ -2714,6 +2757,7 @@ return nil
 
 </td></tr>
 </tbody></table>
+
 
 ### 避免参数语义不明确(Avoid Naked Parameters)
 
@@ -2898,6 +2942,7 @@ var user User
 
   [初始化 Maps](#初始化-maps)
 
+
 #### 初始化 Struct 引用
 
 在初始化结构引用时，请使用`&T{}`代替`new(T)`，以使其与结构体初始化一致。
@@ -3000,6 +3045,8 @@ m := map[T1]T2{
 </tbody></table>
 
 基本准则是：在初始化时使用 map 初始化列表 来添加一组固定的元素。否则使用 `make` (如果可以，请尽量指定 map 容量)。
+
+
 
 ### 字符串 string format
 
@@ -3292,6 +3339,7 @@ func Open(
 
 <!-- TODO: replace this with parameter structs and functional options, when to
 use one vs other -->
+
 
 ## Linting
 
