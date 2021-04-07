@@ -6,6 +6,7 @@ author_title: Uber's open source software for Go development
 author_url: https://github.com/uber-go
 author_image_url: https://avatars.githubusercontent.com/u/19262598?s=200&v=4
 tags: [Go, Github,Uber,guide]
+hide_table_of_contents:True
 ---
 ## Uber-Go-Guide
 ### 介绍
