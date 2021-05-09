@@ -97,5 +97,5 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 lsm=lockdown,yama,apparmor,bpf secu
 
 执行重新生成`grub`配置
 ```shell
-sudo grub-mkconfig >> /boot/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
