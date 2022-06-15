@@ -891,8 +891,6 @@ filter {
 
 
 
-![image-20220315141840836](C:\Users\OnlyX\Desktop\学习笔记\imgs\image-20220315141840836.png)
-
 `API密钥`：`wfU5jH8BpGFDfvd2oQKb:WRy5BmpLQD-FexsyjzGQXA`
 
 ```shell
@@ -1279,8 +1277,6 @@ $ mkdir /soft/logstash8/config/myconfig
 - output-es.conf
 
   创建一个用于数据输出的`API密钥`
-
-  ![image-20220318115220410](C:\Users\OnlyX\Desktop\学习笔记\imgs\image-20220318115220410.png)
 
   `i_4mm38B45nhiZLu0Rlm:pst0SURmS9eTWQDjEMD3OQ`
 
