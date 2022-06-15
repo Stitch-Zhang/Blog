@@ -1559,7 +1559,7 @@ xpack.monitoring.elasticsearch.api_key: "v_Wii38BpGFDfvd2ogIz:0NE0b9CtRFC6Gmk7LQ
 
 #### 上传软件包至`/soft`
 
-![image-20220323115505423](image-20220323115505423.png)
+![image-20220323115505423.png](https://s2.loli.net/2022/06/16/s5GFrBKR9xEH3f8.png)
 
 #### 解压缩
 
@@ -1623,7 +1623,7 @@ $ ./filebeat modules enable apache
 $ vi /soft/filebeat8/modules.d/apache.yml
 ```
 
-![image-20220324091920399](image-20220324091920399.png)
+![image-20220324091920399.png](https://s2.loli.net/2022/06/16/r6cqIHJAXbm9Pjh.png)
 
 * 确保`pat`用户对 apache的access日志文件有访问权限，如果没有请使用`root`执行
 
